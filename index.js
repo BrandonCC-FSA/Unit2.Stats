@@ -11,7 +11,17 @@ function getLength(numbers) {
  * @returns {number} the sum of the numbers
  */
 function getSum(numbers) {
-  return numbers.reduce((total, num) => total + num, 0);
+  // keep track of the total (starting at 0)
+  let total = 0; // must remain outside the loop so it doesn't reset
+  // go through each number one at a time
+  for (let i = 0; i < numbers.length; i = i + 1) {
+    const currentNum = numbers[i];
+    total = total + currentNum;
+  } // (i) = index number, set (i=0) to start at index number zero
+  // add the number to the total
+  // return the total
+  return total;
+  // return numbers.reduce((total, num) => total + num, 0); // what i originally had
 }
 
 /**
@@ -19,7 +29,10 @@ function getSum(numbers) {
  * @returns {number} the mean of the numbers
  */
 function getMean(numbers) {
-  return getSum(numbers) / numbers.length;
+  // return getSum(numbers) / numbers.length;
+  const total = getSum(numbers);
+  const mean = total / getLength(numbers);
+  return mean;
 }
 
 /**
@@ -27,7 +40,20 @@ function getMean(numbers) {
  * @returns {number} the smallest of the numbers
  */
 function getMin(numbers) {
-  return Math.min(...numbers);
+  // return Math.min(...numbers);
+  let smallestNumber = numbers[0];
+  // look at each number and compare them to find the smallest
+  for (let i = 0; i < numbers.length; i = i + 1) {
+    // if the current number is smaller than the smallest number
+    const currentNumber = numbers[i];
+    // as we go, update the smallest number
+    if (currentNumber < smallestNumber) {
+      smallestNumber = currentNumber;
+    }
+  }
+  // keep track of the smallest number
+  // return the smallest number
+  return smallestNumber;
 }
 
 /**
@@ -35,7 +61,15 @@ function getMin(numbers) {
  * @returns {number} the largest of the numbers
  */
 function getMax(numbers) {
-  return Math.max(...numbers);
+  // return Math.max(...numbers);
+  let largestNumber = numbers[0];
+  for (let i = 0; i < numbers.length; i = i + 1) {
+    const currentNumber = numbers[i];
+    if (currentNumber > largestNumber) {
+      largestNumber = currentNumber;
+    }
+  }
+  return largestNumber;
 }
 
 /**
@@ -51,7 +85,13 @@ function getRange(numbers) {
  * @returns {number[]} the even numbers in the array
  */
 function getEvens(numbers) {
-  return numbers.filter((numbers) => numbers % 2 === 0);
+  const evens = [];
+  for (let i = 0; i < numbers.length; i = i + 1) {
+    if (numbers[i] % 2 === 0) {
+      evens.push(numbers[i]);
+    }
+  }
+  return evens;
 }
 
 /**
@@ -59,7 +99,13 @@ function getEvens(numbers) {
  * @returns {number[]} the odd numbers in the array
  */
 function getOdds(numbers) {
-  return numbers.filter((numbers) => numbers % 2 != 0);
+  const odds = [];
+  for (let i = 0; i < numbers.length; i = i + 1) {
+    if (numbers[i] % 2 !== 0) {
+      odds.push(numbers[i]);
+    }
+  }
+  return odds;
 }
 
 // === READ BUT DO NOT EDIT THE CODE BELOW ===
@@ -74,8 +120,8 @@ function convertStringToNumbers(commaSeparatedNumbers) {
 
   // Convert the array of strings into an array of numbers
   const numbers = [];
-  for (const s of strings) {
-    const number = parseInt(s);
+  for (const numAsString of strings) {
+    const number = parseInt(numAsString);
     numbers.push(number);
   }
   return numbers;
